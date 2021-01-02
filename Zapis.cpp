@@ -18,10 +18,6 @@ bool Zapis::zapiszOsoby(std::vector<Osoba> osoby)
 		plik << osoby[i].toCSV();
 	}
 
-	//for (auto el : osoby) {
-	//	plik << el.toCSV();
-	//}
-
 	plik.close();
 
 	return true;

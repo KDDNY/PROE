@@ -6,3 +6,13 @@ int Usluga::GetCena()
 {
 	return cena;
 }
+
+int Usluga::getId()
+{
+	return id;
+}
+
+std::string Usluga::getNazwa()
+{
+	return nazwa;
+}

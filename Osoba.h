@@ -39,7 +39,11 @@ public:
 
 	std::string getPersonalInformation();
 
-
+	Platnosc getPlatnosc();
+	Zakwaterowanie getZakwaterowanie();
+	Zwierzeta getZwierzeta();
+	Wyzywienie getWyzywienie();
+	std::vector<Usluga> getKupioneUslugi();
 	std::string getID();
 	std::string getImie();
 	std::string getNazwisko();

@@ -71,6 +71,31 @@ int Osoba::getCena()
 	return cena;
 }
 
+Platnosc Osoba::getPlatnosc()
+{
+	return platnosc;
+}
+
+Zakwaterowanie Osoba::getZakwaterowanie()
+{
+	return zakwaterowanie;
+}
+
+Zwierzeta Osoba::getZwierzeta()
+{
+	return zwierzeta;
+}
+
+Wyzywienie Osoba::getWyzywienie()
+{
+	return wyzywienie;
+}
+
+std::vector<Usluga> Osoba::getKupioneUslugi()
+{
+	return kupioneUslugi;
+}
+
 std::string Osoba::toCSV()
 {
 	return id + ";" + nazwisko + ";" + imie + ";" + std::to_string(cena) + "\n";

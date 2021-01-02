@@ -47,22 +47,22 @@ Okno::Okno(const wxString& title, const wxPoint& pos, const wxSize& size, SPA sp
     wxBoxSizer* hbox2 = new wxBoxSizer(wxHORIZONTAL);
     wxButton* btn1 = new wxButton(this, 1, wxT("Dodaj"));
     wxButton* btn2 = new wxButton(this, 2, wxT("Wybierz"));
-    wxButton* btn3 = new wxButton(this, 2, wxT("Usuñ"));
+    wxButton* btn3 = new wxButton(this, 3, wxT("Usuñ"));
 
-    hbox2->Add(btn1, 0, wxBOTTOM, 15);
-    hbox2->Add(btn2, 0, wxBOTTOM, 15);
-    hbox2->Add(btn3, 0, wxBOTTOM, 15);
+    hbox2->Add(btn1, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 15);
+    hbox2->Add(btn2, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 15);
+    hbox2->Add(btn3, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 15);
     prawyvbox->Add(hbox2, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 15);
 
     wxStaticText* st1 = new wxStaticText(this, wxID_ANY, wxT("Podsumowanie:"));
-    wxStaticText* st2 = new wxStaticText(this, wxID_ANY, wxT("ID:"));
-    wxStaticText* st3 = new wxStaticText(this, wxID_ANY, wxT("Imiê:"));
-    wxStaticText* st4 = new wxStaticText(this, wxID_ANY, wxT("P³atnoœæ:"));
-    wxStaticText* st5 = new wxStaticText(this, wxID_ANY, wxT("Zakwaterowanie:"));
-    wxStaticText* st6 = new wxStaticText(this, wxID_ANY, wxT("Zwierzêta:"));
-    wxStaticText* st7 = new wxStaticText(this, wxID_ANY, wxT("Wy¿ywienie:"));
-    wxStaticText* st8 = new wxStaticText(this, wxID_ANY, wxT("Us³ugi:"));
-    wxStaticText* st9 = new wxStaticText(this, wxID_ANY, wxT("Koszt:"));
+    st2 = new wxStaticText(this, wxID_ANY, wxT("ID:"));
+    st3 = new wxStaticText(this, wxID_ANY, wxT("Imiê:"));
+    st4 = new wxStaticText(this, wxID_ANY, wxT("P³atnoœæ:"));
+    st5 = new wxStaticText(this, wxID_ANY, wxT("Zakwaterowanie:"));
+    st6 = new wxStaticText(this, wxID_ANY, wxT("Zwierzêta:"));
+    st7 = new wxStaticText(this, wxID_ANY, wxT("Wy¿ywienie:"));
+    st8 = new wxStaticText(this, wxID_ANY, wxT("Us³ugi:"));
+    st9 = new wxStaticText(this, wxID_ANY, wxT("Koszt:"));
     prawyvbox->Add(st1, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
     prawyvbox->Add(st2, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
     prawyvbox->Add(st3, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
@@ -79,6 +79,8 @@ Okno::Okno(const wxString& title, const wxPoint& pos, const wxSize& size, SPA sp
     this->SetSizer(hbox);
     wyswietl();
     Centre();
+
+    Connect(2, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Okno::wybierzClicked));
 }
 
 void Okno::wyswietl() {
@@ -89,4 +91,27 @@ void Okno::wyswietl() {
         listCtrl->SetItem(itemIndex, 2, osoba.getNazwisko());
         listCtrl->SetItem(itemIndex, 3, std::to_string(osoba.getCena()));
     }
+}
+
+void Okno::wybierzClicked(wxCommandEvent& event) {
+    long lSelectedItem = listCtrl->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    int selection = spa.getKontenerLudzi().size() - lSelectedItem - 1;
+    if (lSelectedItem >= 0) {
+        podsumowanie(selection);
+    }
+}
+
+void Okno::podsumowanie(int selection) {
+    st2->SetLabelText("ID: " + spa.getKontenerLudzi().at(selection).getID());
+    st3->SetLabelText("Imiê: " + spa.getKontenerLudzi().at(selection).getImie() + " " + spa.getKontenerLudzi().at(selection).getNazwisko());
+    st4->SetLabelText("P³atnoœæ: " + spa.getKontenerLudzi().at(selection).getPlatnosc().getOpis());
+    st5->SetLabelText("Zakwaterowanie: " + spa.getKontenerLudzi().at(selection).getZakwaterowanie().getOpis() );
+    st6->SetLabelText("Zwierzêta: " + spa.getKontenerLudzi().at(selection).getZwierzeta().getOpis());
+    st7->SetLabelText("Wy¿ywienie: " + spa.getKontenerLudzi().at(selection).getWyzywienie().getOpis());
+    std::string out;
+    for (auto& el : spa.getKontenerLudzi().at(selection).getKupioneUslugi()) {
+        out += std::to_string(el.getId()) + " ";
+    }
+    st8->SetLabelText("Us³ugi: " + out);
+    st9->SetLabelText("Koszt: " + std::to_string(spa.getKontenerLudzi().at(selection).getCena()));
 }

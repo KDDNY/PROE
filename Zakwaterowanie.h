@@ -11,6 +11,5 @@ public:
 
     int cena = 0;
     std::string opis;
-
 };
 

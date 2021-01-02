@@ -16,7 +16,17 @@ private:
 	wxListItem* col1;
 	wxListItem* col2;
 	wxListItem* col3;
+	wxStaticText* st2;
+	wxStaticText* st3;
+	wxStaticText* st4;
+	wxStaticText* st5;
+	wxStaticText* st6;
+	wxStaticText* st7;
+	wxStaticText* st8;
+	wxStaticText* st9;
 	void wyswietl();
+	void wybierzClicked(wxCommandEvent& event);
+	void podsumowanie(int selection);
 	SPA spa;
 };
 

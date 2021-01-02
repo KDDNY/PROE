@@ -21,13 +21,10 @@ bool SPA::Wczytaj()
 
 void SPA::Przelicz()
 {
-  /*  for (int i = 0; i < kontenerLudzi.size(); i++)
+    for (int i = 0; i < kontenerLudzi.size(); i++)
     {
         kontenerLudzi[i].obliczCene();
-    }*/
-   for (auto& el : kontenerLudzi) {
-        el.obliczCene();
-   }
+    }
 }
 
 bool SPA::Zapisz()
@@ -39,7 +36,7 @@ bool SPA::Zapisz()
     return zapis.zapiszOsoby(kontenerLudzi);
 }
 
-const std::vector<Osoba>& SPA::getKontenerLudzi()
+std::vector<Osoba>& SPA::getKontenerLudzi()
 {
     return kontenerLudzi;
 }
