@@ -1,0 +1,73 @@
+#include "Dodawanie.h"
+
+Dodawanie::Dodawanie(wxPoint pos)
+    : wxFrame(nullptr, wxID_ANY, "Dodawanie osoby", pos, wxSize(240, 410))
+{
+    wxBoxSizer* hbox = new wxBoxSizer(wxHORIZONTAL);
+    wxBoxSizer* vbox = new wxBoxSizer(wxVERTICAL);
+    wxBoxSizer* vbox2 = new wxBoxSizer(wxVERTICAL);
+
+    wxStaticText* st1 = new wxStaticText(this, wxID_ANY, wxT("Dodaj now¹ osobê:"));
+    wxStaticText* st2 = new wxStaticText(this, wxID_ANY, wxT("ID:"));
+    wxStaticText* st3 = new wxStaticText(this, wxID_ANY, wxT("Imiê:"));
+    wxTextCtrl* tc1 = new wxTextCtrl(this, wxID_ANY);
+    wxStaticText* st9 = new wxStaticText(this, wxID_ANY, wxT("Nazwisko:"));
+    wxTextCtrl* tc2 = new wxTextCtrl(this, wxID_ANY);
+
+
+    wxArrayString choices3;
+    choices3.Add("Standard");
+    choices3.Add("Standard Family");
+    choices3.Add("VIP");
+    choices3.Add("Penthouse");
+    wxRadioBox* radioBox3 = new wxRadioBox(this, wxID_ANY, "Zakwaterowanie", wxDefaultPosition, wxDefaultSize, choices3, 4, wxRA_VERTICAL);
+
+    wxArrayString choices2;
+    choices2.Add("Tak");
+    choices2.Add("Nie");
+    wxRadioBox* radioBox2 = new wxRadioBox(this, wxID_ANY, "Zwierzêta", wxDefaultPosition, wxDefaultSize, choices2, 2, wxRA_VERTICAL);
+
+    wxArrayString choices;
+    choices.Add("SPA");
+    choices.Add("Online");
+    wxRadioBox* radioBox = new wxRadioBox(this, wxID_ANY, "P³atnoœæ", wxDefaultPosition, wxDefaultSize, choices, 2, wxRA_VERTICAL);
+
+
+    wxArrayString choices4;
+    choices4.Add("3posilki");
+    choices4.Add("5posilkow");
+    choices4.Add("roomservice");
+    wxRadioBox* radioBox4 = new wxRadioBox(this, wxID_ANY, "P³atnoœæ", wxDefaultPosition, wxDefaultSize, choices4, 3, wxRA_VERTICAL);
+
+    wxStaticText* st8 = new wxStaticText(this, wxID_ANY, wxT("Us³ugi:"));
+    wxTextCtrl* tc3 = new wxTextCtrl(this, wxID_ANY);
+
+    wxButton* btn1 = new wxButton(this, 1, wxT("ZatwierdŸ"));
+    wxButton* btn2 = new wxButton(this, 1, wxT("Anuluj"));
+
+
+
+    vbox->Add(st1, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+    vbox->Add(st2, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+    vbox->Add(st9, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+    vbox->Add(tc1, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+    vbox->Add(st3, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+    vbox->Add(tc2, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+    vbox->Add(st8, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+    vbox->Add(tc3, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+    vbox2->Add(radioBox, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+
+    vbox->Add(radioBox3, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+    vbox2->Add(radioBox2, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+
+    vbox2->Add(radioBox4, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+
+    vbox2->Add(btn1, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+    vbox2->Add(btn2, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+
+    hbox->Add(vbox, 0, wxTOP | wxEXPAND, 15);
+    hbox->Add(vbox2, 0, wxTOP | wxEXPAND, 15);
+
+    this->SetSizer(hbox);
+    Centre();
+} 
