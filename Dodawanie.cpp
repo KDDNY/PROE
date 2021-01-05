@@ -1,18 +1,20 @@
 #include "Dodawanie.h"
+#include "SPA.h"
 
-Dodawanie::Dodawanie(wxPoint pos)
-    : wxFrame(nullptr, wxID_ANY, "Dodawanie osoby", pos, wxSize(240, 410))
+Dodawanie::Dodawanie(wxPoint pos, SPA* spa)
+    : spa(spa), wxFrame(nullptr, wxID_ANY, "SPA", pos, wxSize(240, 410))
 {
     wxBoxSizer* hbox = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer* vbox = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer* vbox2 = new wxBoxSizer(wxVERTICAL);
 
+    int id = spa->getKontenerLudzi().size();
     wxStaticText* st1 = new wxStaticText(this, wxID_ANY, wxT("Dodaj now¹ osobê:"));
-    wxStaticText* st2 = new wxStaticText(this, wxID_ANY, wxT("ID:"));
+    wxStaticText* st2 = new wxStaticText(this, wxID_ANY, wxT("ID: " + std::to_string(id+1)));
     wxStaticText* st3 = new wxStaticText(this, wxID_ANY, wxT("Imiê:"));
-    wxTextCtrl* tc1 = new wxTextCtrl(this, wxID_ANY);
+    tc1 = new wxTextCtrl(this, wxID_ANY);
     wxStaticText* st9 = new wxStaticText(this, wxID_ANY, wxT("Nazwisko:"));
-    wxTextCtrl* tc2 = new wxTextCtrl(this, wxID_ANY);
+    tc2 = new wxTextCtrl(this, wxID_ANY);
 
 
     wxArrayString choices3;
@@ -20,30 +22,31 @@ Dodawanie::Dodawanie(wxPoint pos)
     choices3.Add("Standard Family");
     choices3.Add("VIP");
     choices3.Add("Penthouse");
-    wxRadioBox* radioBox3 = new wxRadioBox(this, wxID_ANY, "Zakwaterowanie", wxDefaultPosition, wxDefaultSize, choices3, 4, wxRA_VERTICAL);
+    radioBox3 = new wxRadioBox(this, wxID_ANY, "Zakwaterowanie", wxDefaultPosition, wxDefaultSize, choices3, 4, wxRA_VERTICAL);
 
     wxArrayString choices2;
-    choices2.Add("Tak");
-    choices2.Add("Nie");
-    wxRadioBox* radioBox2 = new wxRadioBox(this, wxID_ANY, "Zwierzêta", wxDefaultPosition, wxDefaultSize, choices2, 2, wxRA_VERTICAL);
+    choices2.Add("tak");
+    choices2.Add("nie");
+    radioBox2 = new wxRadioBox(this, wxID_ANY, "Zwierzêta", wxDefaultPosition, wxDefaultSize, choices2, 2, wxRA_VERTICAL);
 
     wxArrayString choices;
-    choices.Add("SPA");
-    choices.Add("Online");
-    wxRadioBox* radioBox = new wxRadioBox(this, wxID_ANY, "P³atnoœæ", wxDefaultPosition, wxDefaultSize, choices, 2, wxRA_VERTICAL);
+    choices.Add("na miejscu");
+    choices.Add("online");
+    radioBox1 = new wxRadioBox(this, wxID_ANY, "P³atnoœæ", wxDefaultPosition, wxDefaultSize, choices, 2, wxRA_VERTICAL);
 
 
     wxArrayString choices4;
     choices4.Add("3posilki");
     choices4.Add("5posilkow");
     choices4.Add("roomservice");
-    wxRadioBox* radioBox4 = new wxRadioBox(this, wxID_ANY, "P³atnoœæ", wxDefaultPosition, wxDefaultSize, choices4, 3, wxRA_VERTICAL);
+    radioBox4 = new wxRadioBox(this, wxID_ANY, "Wy¿ywienie", wxDefaultPosition, wxDefaultSize, choices4, 3, wxRA_VERTICAL);
+    
 
     wxStaticText* st8 = new wxStaticText(this, wxID_ANY, wxT("Us³ugi:"));
-    wxTextCtrl* tc3 = new wxTextCtrl(this, wxID_ANY);
+    tc3 = new wxTextCtrl(this, wxID_ANY);
 
     wxButton* btn1 = new wxButton(this, 1, wxT("ZatwierdŸ"));
-    wxButton* btn2 = new wxButton(this, 1, wxT("Anuluj"));
+    wxButton* btn2 = new wxButton(this, 2, wxT("Anuluj"));
 
 
 
@@ -55,7 +58,7 @@ Dodawanie::Dodawanie(wxPoint pos)
     vbox->Add(tc2, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
     vbox->Add(st8, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
     vbox->Add(tc3, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
-    vbox2->Add(radioBox, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
+    vbox2->Add(radioBox1, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
 
     vbox->Add(radioBox3, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
     vbox2->Add(radioBox2, 0, wxLEFT | wxBOTTOM | wxTOP | wxEXPAND, 5);
@@ -70,4 +73,25 @@ Dodawanie::Dodawanie(wxPoint pos)
 
     this->SetSizer(hbox);
     Centre();
-} 
+
+    Connect(2, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Dodawanie::anulujClicked));
+    Connect(1, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Dodawanie::zatwierdzClicked));
+
+}
+void Dodawanie::anulujClicked(wxCommandEvent& event)
+{
+    this->Close(true);
+}
+
+void Dodawanie::zatwierdzClicked(wxCommandEvent& event) {
+    std::string id, imie, nazwisko, platnosc, zakwaterowanie, zwierzeta, wyzywienie, uslugi;
+    id = std::to_string(spa->getKontenerLudzi().size() + 1);
+    imie = std::string(tc1->GetValue().mb_str(wxConvUTF8));
+    nazwisko = std::string(tc2->GetValue().mb_str(wxConvUTF8));
+    uslugi = std::string(tc3->GetValue().mb_str(wxConvUTF8));
+    platnosc = radioBox1->GetString(radioBox1->GetSelection());
+    zwierzeta = radioBox2->GetString(radioBox1->GetSelection());
+    zakwaterowanie = radioBox3->GetString(radioBox1->GetSelection());
+    wyzywienie = radioBox4->GetString(radioBox1->GetSelection());
+
+}

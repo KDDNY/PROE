@@ -1,4 +1,5 @@
 #include "Okno.h"
+#include "Dodawanie.h"
 
 Okno::Okno(const wxString& title, const wxPoint& pos, const wxSize& size, SPA spa)
     : wxFrame(NULL, wxID_ANY, title, pos, size), spa(spa)
@@ -81,6 +82,7 @@ Okno::Okno(const wxString& title, const wxPoint& pos, const wxSize& size, SPA sp
     Centre();
 
     Connect(2, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Okno::wybierzClicked));
+    Connect(1, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Okno::dodajClicked));
 }
 
 void Okno::wyswietl() {
@@ -99,6 +101,11 @@ void Okno::wybierzClicked(wxCommandEvent& event) {
     if (lSelectedItem >= 0) {
         podsumowanie(selection);
     }
+}
+
+void Okno::dodajClicked(wxCommandEvent& event) {
+    Dodawanie* dodawanie = new Dodawanie(this->GetPosition(), &spa);
+    dodawanie->Show(true);
 }
 
 void Okno::podsumowanie(int selection) {

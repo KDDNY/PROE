@@ -26,6 +26,7 @@ private:
 	wxStaticText* st9;
 	void wyswietl();
 	void wybierzClicked(wxCommandEvent& event);
+	void dodajClicked(wxCommandEvent& event);
 	void podsumowanie(int selection);
 	SPA spa;
 };
