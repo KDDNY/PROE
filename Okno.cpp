@@ -104,7 +104,7 @@ void Okno::wybierzClicked(wxCommandEvent& event) {
 }
 
 void Okno::dodajClicked(wxCommandEvent& event) {
-    Dodawanie* dodawanie = new Dodawanie(this->GetPosition(), &spa);
+    Dodawanie* dodawanie = new Dodawanie(this->GetPosition(), &spa, this);
     dodawanie->Show(true);
 }
 

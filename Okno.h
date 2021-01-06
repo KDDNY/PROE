@@ -10,6 +10,7 @@ class Okno : public wxFrame
 {
 public:
 	Okno(const wxString& title, const wxPoint& pos, const wxSize& size, SPA spa);
+	void wyswietl();
 private:
 	wxListCtrl* listCtrl;
 	wxListItem* col0;
@@ -24,7 +25,6 @@ private:
 	wxStaticText* st7;
 	wxStaticText* st8;
 	wxStaticText* st9;
-	void wyswietl();
 	void wybierzClicked(wxCommandEvent& event);
 	void dodajClicked(wxCommandEvent& event);
 	void podsumowanie(int selection);

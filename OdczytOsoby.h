@@ -19,5 +19,9 @@ private:
 
 public:
 	OdczytOsoby(std::string nazwaPliku);
+	OdczytOsoby() = default;
+	~OdczytOsoby() = default;
 	std::vector<Osoba> Wczytaj(std::vector<Usluga>& uslugi);
+	Osoba stworzOsobe(std::string id, std::string imie, std::string nazwisko, std::string platnosc, std::string zakwaterowanie,
+		std::string zwierzeta, std::string wyzywienie);
 };

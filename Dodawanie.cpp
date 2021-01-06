@@ -1,8 +1,9 @@
 #include "Dodawanie.h"
 #include "SPA.h"
 
-Dodawanie::Dodawanie(wxPoint pos, SPA* spa)
-    : spa(spa), wxFrame(nullptr, wxID_ANY, "SPA", pos, wxSize(240, 410))
+
+Dodawanie::Dodawanie(wxPoint pos, SPA* spa, Okno* okno)
+    : spa(spa), okno(okno), wxFrame(nullptr, wxID_ANY, "SPA", pos, wxSize(240, 410))
 {
     wxBoxSizer* hbox = new wxBoxSizer(wxHORIZONTAL);
     wxBoxSizer* vbox = new wxBoxSizer(wxVERTICAL);
@@ -93,5 +94,16 @@ void Dodawanie::zatwierdzClicked(wxCommandEvent& event) {
     zwierzeta = radioBox2->GetString(radioBox1->GetSelection());
     zakwaterowanie = radioBox3->GetString(radioBox1->GetSelection());
     wyzywienie = radioBox4->GetString(radioBox1->GetSelection());
+    
+    
 
+    auto odczyt = new OdczytOsoby();
+    Osoba osoba = odczyt->stworzOsobe(id, imie, nazwisko, platnosc, zakwaterowanie, zwierzeta, wyzywienie);
+    osoba.obliczCene();
+    spa->getKontenerLudzi().push_back(osoba);
+    
+    
+
+    okno->wyswietl();
+    this->Close(true);
 }

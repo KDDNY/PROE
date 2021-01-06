@@ -43,6 +43,36 @@ Osoba OdczytOsoby::WczytajOsobe(std::ifstream& file)
 	return nowaOsoba;
 }
 
+Osoba OdczytOsoby::stworzOsobe(std::string id, std::string imie, std::string nazwisko, std::string platnosc, std::string zakwaterowanie,
+	std::string zwierzeta, std::string wyzywienie) {
+	Zakwaterowanie zakwaterowanieObj;
+	Platnosc platnoscObj;
+	Zwierzeta zwierzetaObj;
+	Wyzywienie wyzywienieObj;
+	for (Zakwaterowanie z : opcje_zakwaterowania)
+	{
+		if (z.opis == zakwaterowanie)
+			zakwaterowanieObj = z;
+	}
+	for (Platnosc p : opcje_platnosc)
+	{
+		if (p.opis == platnosc)
+			platnoscObj = p;
+	}
+	for (Zwierzeta z : opcje_zwierzeta)
+	{
+		if (z.opis == zwierzeta)
+			zwierzetaObj = z;
+	}
+	for (Wyzywienie w : opcje_wyzywienia)
+	{
+		if (w.opis == wyzywienie)
+			wyzywienieObj = w;
+	}
+
+	Osoba nowaOsoba(id, nazwisko, imie, platnoscObj, zakwaterowanieObj, zwierzetaObj, wyzywienieObj);
+	return nowaOsoba;
+}
 
 OdczytOsoby::OdczytOsoby(std::string nazwaPliku) : nazwaPliku(nazwaPliku)
 {
