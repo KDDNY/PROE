@@ -24,5 +24,6 @@ public:
 	bool Wczytaj();
 	void Przelicz();
 	bool Zapisz();
+	bool ZapiszDane();
 	std::vector<Osoba>& getKontenerLudzi();
 };

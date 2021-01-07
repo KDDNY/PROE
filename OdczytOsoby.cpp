@@ -99,11 +99,13 @@ std::vector<Osoba> OdczytOsoby::Wczytaj(std::vector<Usluga>& uslugi)
 
 		std::string idUslug;
 		getline(file, idUslug);
-
-		UslugiStream stream(idUslug);
-		while (!stream.NastepneId())
-		{
-			nowaOsoba.dodajUsluge(uslugi[stream.PobierzId()-1]);
+		//Trzeba sprawdzic czy klient posiada jakiekolwiek uslugi bo inaczej wystepuje blad
+		if (idUslug != "") {
+			UslugiStream stream(idUslug);
+			while (!stream.NastepneId())
+			{
+				nowaOsoba.dodajUsluge(uslugi[stream.PobierzId() - 1]);
+			}
 		}
 		osoby.push_back(nowaOsoba);
 

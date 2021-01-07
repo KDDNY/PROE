@@ -50,6 +50,6 @@ public:
 	int getCena();
 
 	std::string toCSV();
-
+	std::string toCSVDane();
 };
 

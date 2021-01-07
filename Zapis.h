@@ -10,7 +10,9 @@ class Zapis
 {
 private:
 	std::string nazwaPliku;
+	std::string nazwaPlikuDane;
 public:
-	Zapis(std::string nazwaPliku);
+	Zapis(std::string nazwaPliku, std::string nazwaPlikuDane);
 	bool zapiszOsoby(std::vector<Osoba> osoby);
+	bool zapiszOsobyDane(std::vector<Osoba> osoby);
 };

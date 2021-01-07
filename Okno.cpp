@@ -83,6 +83,20 @@ Okno::Okno(const wxString& title, const wxPoint& pos, const wxSize& size, SPA sp
 
     Connect(2, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Okno::wybierzClicked));
     Connect(1, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Okno::dodajClicked));
+    Connect(3, wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler(Okno::usunClicked));
+
+}
+
+void Okno::usunClicked(wxCommandEvent& event) {
+    long lSelectedItem = listCtrl->GetNextItem(-1, wxLIST_NEXT_ALL, wxLIST_STATE_SELECTED);
+    int selection = spa.getKontenerLudzi().size() - lSelectedItem - 1;
+    if (lSelectedItem >= 0) {
+        podsumowanie(selection);
+    }
+    spa.getKontenerLudzi().erase(spa.getKontenerLudzi().begin() + selection);
+    spa.Zapisz();
+    spa.ZapiszDane();
+    wyswietl();
 }
 
 void Okno::wyswietl() {

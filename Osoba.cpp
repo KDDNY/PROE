@@ -100,3 +100,18 @@ std::string Osoba::toCSV()
 {
 	return id + ";" + nazwisko + ";" + imie + ";" + std::to_string(cena) + "\n";
 }
+
+
+std::string Osoba::toCSVDane() {
+	std::string uslugi;
+	for (int i = 0; i < kupioneUslugi.size(); i++) {
+		//konieczne poniewaz spacja na koncu lini w pliku csv powoduje blad
+		if (i < kupioneUslugi.size() - 1) {
+			uslugi = uslugi + std::to_string(kupioneUslugi.at(i).getId()) + " ";
+		} else uslugi = uslugi + std::to_string(kupioneUslugi.at(i).getId());
+	}
+	std::string chuj = wyzywienie.getOpis();
+	return id + ";" + nazwisko + ";" + imie + ";" + platnosc.getOpis() + ";" + zakwaterowanie.getOpis() + ";"+ zwierzeta.getOpis() 
+		+ ";" + wyzywienie.getOpis() + ";" + uslugi + "\n";
+}
+	

@@ -105,5 +105,7 @@ void Dodawanie::zatwierdzClicked(wxCommandEvent& event) {
     
 
     okno->wyswietl();
+    spa->Zapisz();
+    spa->ZapiszDane();
     this->Close(true);
 }
