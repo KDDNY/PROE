@@ -15,8 +15,7 @@ private:
 
 	std::vector<Osoba> kontenerLudzi;
 	std::vector<Usluga> kontenerUslug;
-	OdczytOsoby odczytOsoby;
-	OdczytUslugi odczytUslugi;
+
 	Zapis zapis;
 
 public:
@@ -26,4 +25,7 @@ public:
 	bool Zapisz();
 	bool ZapiszDane();
 	std::vector<Osoba>& getKontenerLudzi();
+	OdczytOsoby odczytOsoby;
+	OdczytUslugi odczytUslugi;
 };
+

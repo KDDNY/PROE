@@ -9,9 +9,9 @@ Dodawanie::Dodawanie(wxPoint pos, SPA* spa, Okno* okno)
     wxBoxSizer* vbox = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer* vbox2 = new wxBoxSizer(wxVERTICAL);
 
-    int id = spa->getKontenerLudzi().size();
+    int id = obliczID();
     wxStaticText* st1 = new wxStaticText(this, wxID_ANY, wxT("Dodaj now¹ osobê:"));
-    wxStaticText* st2 = new wxStaticText(this, wxID_ANY, wxT("ID: " + std::to_string(id+1)));
+    wxStaticText* st2 = new wxStaticText(this, wxID_ANY, wxT("ID: " + std::to_string(id)));
     wxStaticText* st3 = new wxStaticText(this, wxID_ANY, wxT("Imiê:"));
     tc1 = new wxTextCtrl(this, wxID_ANY);
     wxStaticText* st9 = new wxStaticText(this, wxID_ANY, wxT("Nazwisko:"));
@@ -84,21 +84,56 @@ void Dodawanie::anulujClicked(wxCommandEvent& event)
     this->Close(true);
 }
 
+int Dodawanie::obliczID()
+{
+    int id = spa->getKontenerLudzi().size() + 1;
+    while (!sprawdzCzyIDistnieje(id)) {
+        id++;
+    }
+    return id;
+}
+
+bool Dodawanie::sprawdzCzyIDistnieje(int id)
+{
+    for (auto el : spa->getKontenerLudzi()) {
+        if (el.getID() == std::to_string(id)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+//Ÿród³o: https://recluze.net/2019/04/21/split-string-to-int-vector-in-c/
+std::vector<int> split(const std::string& s, char delimiter) {
+    std::vector<int> tokens;
+    std::string token;
+    std::istringstream tokenStream(s);
+    while (std::getline(tokenStream, token, delimiter)) {
+        tokens.push_back(stoi(token));
+    }
+    return tokens;
+}
+
+
 void Dodawanie::zatwierdzClicked(wxCommandEvent& event) {
     std::string id, imie, nazwisko, platnosc, zakwaterowanie, zwierzeta, wyzywienie, uslugi;
-    id = std::to_string(spa->getKontenerLudzi().size() + 1);
+    id = std::to_string(obliczID());
     imie = std::string(tc1->GetValue().mb_str(wxConvUTF8));
     nazwisko = std::string(tc2->GetValue().mb_str(wxConvUTF8));
     uslugi = std::string(tc3->GetValue().mb_str(wxConvUTF8));
     platnosc = radioBox1->GetString(radioBox1->GetSelection());
-    zwierzeta = radioBox2->GetString(radioBox1->GetSelection());
-    zakwaterowanie = radioBox3->GetString(radioBox1->GetSelection());
-    wyzywienie = radioBox4->GetString(radioBox1->GetSelection());
+    zwierzeta = radioBox2->GetString(radioBox2->GetSelection());
+    zakwaterowanie = radioBox3->GetString(radioBox3->GetSelection());
+    wyzywienie = radioBox4->GetString(radioBox4->GetSelection());
     
-    
+    std::vector<int> idUslug = split(uslugi, ' ');
+    auto uslugiVector = spa->odczytUslugi.WczytajDaneUslugi(idUslug);
 
     auto odczyt = new OdczytOsoby();
     Osoba osoba = odczyt->stworzOsobe(id, imie, nazwisko, platnosc, zakwaterowanie, zwierzeta, wyzywienie);
+    for (auto& el : uslugiVector) {
+        osoba.dodajUsluge(el);
+    }
     osoba.obliczCene();
     spa->getKontenerLudzi().push_back(osoba);
     

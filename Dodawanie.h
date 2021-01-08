@@ -10,6 +10,8 @@ public:
 private:
 	void anulujClicked(wxCommandEvent& event);
 	void zatwierdzClicked(wxCommandEvent& event);
+	int obliczID();
+	bool sprawdzCzyIDistnieje(int id);
 	wxTextCtrl* tc1;
 	wxTextCtrl* tc2;
 	wxTextCtrl* tc3;
